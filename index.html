@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Arial', sans-serif;
+            background: url('https://www.transparenttextures.com/patterns/graph-paper.png') repeat;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 10;
+            background: none;
+        }
+        .navbar-nav {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+        .nav-item { margin: 10px 0; }
+        .nav-link {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.2rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        .nav-link:hover { color: #e67e22; }
+        .nav-divider {
+            width: 50px;
+            height: 1px;
+            background-color: #fff;
+            margin: 5px 0;
+            opacity: 0.7;
+        }
+        .resume-download {
+            text-align: center;
+            margin: 40px 0;
+        }
+        .resume-download a {
+            background-color: #28a745;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .resume-download a:hover { background-color: #218838; }
+        .hero-section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                            url('img/Images/IMG_0325.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: scroll;
+            background-repeat: no-repeat;
+            position: relative;
+            color: #fff;
+        }
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        .hero-content h1 span { color: #e67e22; }
+        .hero-content p {
+            font-size: 1.5rem;
+            color: #f8f9fa;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        .btn-about {
+            background-color: #6c757d;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .btn-about:hover {
+            background-color: #5a6268;
+            color: #fff;
+        }
+        @media (max-width: 768px) {
+            .hero-section {
+                background-position: 75% center;
+                background-size: 150% auto;
+            }
+            .hero-content h1 { font-size: 2.5rem; }
+            .hero-content p { font-size: 1.2rem; }
+        }
+        #about-me {
+            padding: 80px 0;
+            background-color: #fff;
+        }
+        #about-me h2 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        #about-me p {
+            color: #7f8c8d;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        #my-work {
+            padding: 80px 0;
+            background-color: #fff;
+        }
+        #my-work h2 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        #my-work h2::after {
+            content: '';
+            width: 50px;
+            height: 2px;
+            background-color: #28a745;
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .category-buttons {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .category-buttons .btn {
+            margin: 0 10px 10px 0;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        .category-buttons .btn-primary {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+        .category-buttons .btn-primary:hover {
+            background-color: #218838;
+            border-color: #218838;
+        }
+        .category-buttons .btn-outline-secondary {
+            color: #6c757d;
+            border-color: #6c757d;
+        }
+        .category-buttons .btn-outline-secondary:hover {
+            background-color: #6c757d;
+            color: #fff;
+        }
+        .work-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 0 15px;
+            transition: all 0.5s ease;
+        }
+        .work-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            aspect-ratio: 1 / 1;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        .work-image-container {
+            width: 100%;
+            padding-top: 100%;
+            position: relative;
+        }
+        .work-image-container img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .work-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            padding: 10px 20px;
+        }
+        .work-item:hover .work-overlay { opacity: 1; }
+        .work-overlay h3 {
+            color: #fff;
+            font-size: 1.2rem;
+            margin: 0;
+        }
+        .work-item:hover { transform: scale(1.05); }
+        /* Scatter animation */
+        .scatter .work-item {
+            animation: scatter 0.5s ease forwards;
+            opacity: 0;
+        }
+        @keyframes scatter {
+            0% { transform: translate(0, 0); opacity: 1; }
+            100% { transform: translate(calc(50vw - 50%), calc(50vh - 50%)); opacity: 0; }
+        }
+        /* 3-column layout for Graphic Design */
+        .graphic-design-active .work-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+        .graphic-design-active .work-item {
+            animation: appear 0.5s ease forwards 0.5s;
+            opacity: 0;
+        }
+        @keyframes appear {
+            0% { transform: translateY(20px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        .load-more {
+            text-align: center;
+            margin-top: 40px;
+        }
+        .load-more .btn {
+            background-color: #28a745;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .load-more .btn:hover { background-color: #218838; }
+        #contact-me {
+            padding: 80px 0;
+            background-color: #f8f9fa;
+        }
+        #contact-me h2 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .contact-form .form-control {
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        .contact-form .btn {
+            background-color: #28a745;
+            color: #fff;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .contact-form .btn:hover { background-color: #218838; }
+        footer {
+            background-color: #2c3e50;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+        footer .social-icons a {
+            color: #fff;
+            font-size: 1.2rem;
+            margin: 0 10px;
+        }
+        footer .social-icons a:hover { color: #e67e22; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="#about-me">About Me</a>
+            </li>
+            <div class="nav-divider"></div>
+            <li class="nav-item">
+                <a class="nav-link" href="#my-work">My Work</a>
+            </li>
+            <div class="nav-divider"></div>
+            <li class="nav-item">
+                <a class="nav-link" href="#contact-me">Contact Me</a>
+            </li>
+        </ul>
+    </nav>
+
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1>Hi There, I'm <span>Nimeela Parupudi</span></h1>
+            <p>I Am Into Communication De</p>
+            <a href="#about-me" class="btn btn-about">About Me ↓</a>
+        </div>
+    </section>
+
+    <section id="about-me">
+        <div class="container">
+            <h2>About Me</h2>
+            <p>Hello! I'm Nimeela, I like to make designs which feel like an old friend, a cherished memory.</p>
+        </div>
+    </section>
+
+    <section id="my-work">
+        <div class="container">
+            <h2>My Work</h2>
+            <div class="category-buttons">
+                <button class="btn btn-primary" data-category="all">Show All</button>
+                <button class="btn btn-outline-secondary" data-category="graphic-design">Graphic Design</button>
+                <button class="btn btn-outline-secondary" data-category="poetry">Poetry</button>
+                <button class="btn btn-outline-secondary" data-category="photography">Photography</button>
+            </div>
+            <div class="work-grid">
+                <div class="work-item" data-categories="all graphic-design" onclick="window.location.href='project1.html'">
+                    <div class="work-image-container">
+                        <img src="doodle/backandfront.png" alt="Doodle Game Design">
+                        <div class="work-overlay">
+                            <h3>Doodle Game</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="work-item" data-categories="all graphic-design" onclick="window.location.href='project2.html'">
+                    <div class="work-image-container">
+                        <img src="poster/project2.png" alt="Project 2">
+                        <div class="work-overlay">
+                            <h3>What is Design?</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="work-item" data-categories="all graphic-design" onclick="window.location.href='project3.html'">
+                    <div class="work-image-container">
+                        <img src="poster/project3.png" alt="Project 3">
+                        <div class="work-overlay">
+                            <h3>Kannada Poster</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="work-item" data-categories="all poetry" onclick="window.location.href='poetry1.html'">
+                    <div class="work-image-container">
+                        <img src="poetry/poetry1.png" alt="Poetry 1">
+                        <div class="work-overlay">
+                            <h3>When Reality Pounds</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="work-item" data-categories="all poetry" onclick="window.location.href='poetry2.html'">
+                    <div class="work-image-container">
+                        <img src="poetry/poetry2.png" alt="Poetry 2">
+                        <div class="work-overlay">
+                            <h3>Poetry 2</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="work-item" data-categories="all poetry" onclick="window.location.href='poetry3.html'">
+                    <div class="work-image-container">
+                        <img src="poetry/poetry3.png" alt="Poetry 3">
+                        <div class="work-overlay">
+                            <h3>Poetry 3</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="work-item" data-categories="all photography" onclick="window.location.href='photo1.html'">
+                    <div class="work-image-container">
+                        <img src="photography/photo1.jpg" alt="Photography 1">
+                        <div class="work-overlay">
+                            <h3>Photography 1</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="work-item" data-categories="all photography" onclick="window.location.href='photo2.html'">
+                    <div class="work-image-container">
+                        <img src="photography/photo2.JPG" alt="Photography 1">
+                        <div class="work-overlay">
+                            <h3>Photography 1</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="work-item" data-categories="all photography" onclick="window.location.href='photo3.html'">
+                    <div class="work-image-container">
+                        <img src="photography/photo3.jpg" alt="Photography 1">
+                        <div class="work-overlay">
+                            <h3>Photography 1</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="load-more">
+                <button class="btn">Load More →</button>
+            </div>
+        </div>
+    </section>
+
+    <div class="resume-download">
+        <a href="path/to/your/resume.pdf" download>Download My Resume</a>
+    </div>
+
+    <section id="contact-me">
+        <div class="container">
+            <h2>Contact Me</h2>
+            <form class="contact-form">
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" placeholder="Your Name" required>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="email" class="form-control" placeholder="Your Email" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <textarea class="form-control" rows="5" placeholder="Your Message" required></textarea>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn">Send Message</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>© 2025 Nimeela Parupudi. All Rights Reserved.</p>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-behance"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const buttons = document.querySelectorAll('.category-buttons .btn');
+        const workItems = document.querySelectorAll('.work-item');
+        const workGrid = document.querySelector('.work-grid');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                const category = button.getAttribute('data-category');
+
+                // Remove active class from all buttons and add to the clicked one
+                buttons.forEach(btn => btn.classList.remove('btn-primary'));
+                button.classList.add('btn-primary');
+                buttons.forEach(btn => {
+                    if (!btn.classList.contains('btn-primary')) {
+                        btn.classList.add('btn-outline-secondary');
+                    } else {
+                        btn.classList.remove('btn-outline-secondary');
+                    }
+                });
+
+                // Handle filtering and animation
+                if (category === 'graphic-design') {
+                    // Scatter effect
+                    workGrid.classList.add('scatter');
+                    setTimeout(() => {
+                        workGrid.classList.remove('scatter');
+                        workGrid.classList.add('graphic-design-active');
+                        filterItems(category);
+                    }, 500); // Match scatter animation duration
+                } else {
+                    workGrid.classList.remove('graphic-design-active');
+                    filterItems(category);
+                }
+            });
+        });
+
+        function filterItems(category) {
+            workItems.forEach(item => {
+                const categories = item.getAttribute('data-categories').split(' ');
+                if (category === 'all' || categories.includes(category)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Initial display: show all
+        filterItems('all');
+    </script>
+</body>
+</html>
