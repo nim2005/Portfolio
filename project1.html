@@ -3,83 +3,296 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Doodle Game - Nimeela Parupudi</title>
+    <title>Project 1 - Doodle Game</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            color: #333;
+            font-family: 'Montserrat', sans-serif;
+            background: #f8f9fa;
             margin: 0;
             padding: 0;
-            background-color: #f8f9fa;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
         }
         .project-header {
-            background-color: #2c3e50;
-            color: #fff;
-            padding: 2rem 0;
+            font-size: 2rem;
+            color: #2c3e50;
             text-align: center;
-        }
-        .project-header h1 {
-            margin: 0;
-            font-size: 2.5rem;
+            margin-bottom: 40px;
         }
         .project-content {
-            padding: 4rem 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
         }
         .project-image {
+            flex: 1 1 60%;
+            min-width: 300px;
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .project-image img {
             width: 100%;
-            max-height: 500px;
-            object-fit: cover;
-            margin-bottom: 2rem;
+            height: auto;
+            display: block;
         }
-        .back-btn {
-            margin-bottom: 2rem;
-            display: inline-block;
-            color: #28a745;
+        .project-text {
+            flex: 1 1 30%;
+            min-width: 250px;
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            color: #666;
+        }
+        .project-text h4 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        .project-text p {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+        /* Additional Images Section - Two Columns */
+        .additional-images {
+            margin-top: 40px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* Two columns */
+            gap: 30px;
+        }
+        .additional-image {
+            background: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer; /* Indicate clickable */
+        }
+        .additional-image:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+        .additional-image img {
+            width: 100%; /* Scale to fit the column */
+            height: auto; /* Preserve aspect ratio */
+            display: block;
+        }
+        /* Modal for Full-Size Image */
+        .modal-content {
+            background: transparent; /* Remove background */
+            border-radius: 0; /* Remove border radius */
+            position: relative;
+            border: none;
+        }
+        .modal-body {
+            padding: 0;
+            background: transparent; /* Remove background */
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            min-height: 90vh; /* Take up most of the viewport height */
+            position: relative; /* Make this a positioning context for the close button */
+        }
+        .modal-body img {
+            max-width: 90%; /* Prevent overflow */
+            max-height: 80vh; /* Prevent overflow */
+            width: auto; /* Preserve original width */
+            height: auto; /* Preserve original height */
+            display: block;
+        }
+        /* Close Button Styles - Positioned relative to the image */
+        .modal-close {
+            position: absolute;
+            top: -10px; /* Closer to the image (10px above) */
+            right: 0; /* Align with the right edge of the image */
+            background: none !important; /* Explicitly remove background */
+            color: #fff; /* Change the color of the "×" */
+            border: none;
+            width: 40px; /* Change the width of the button */
+            height: 40px; /* Change the height of the button */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.5rem; /* Change the size of the "×" */
+            transition: color 0.3s ease, transform 0.3s ease;
+            z-index: 1000; /* Ensure it’s above other elements */
+        }
+        .modal-close:hover {
+            color: #7a34a6; /* Change the hover color of the "×" */
+            transform: scale(1.1); /* Change the hover scale effect */
+        }
+        /* Arrow Styles */
+        .modal-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none !important; /* Explicitly remove background */
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 3rem; /* Change the size of the arrows */
+            color: #fff; /* Change the color of the arrows */
+            transition: color 0.3s ease;
+        }
+        .modal-arrow:hover {
+            color: #7a34a6; /* Change the hover color of the arrows */
+        }
+        .modal-arrow.left {
+            left: -60px; /* Change how far the left arrow is from the image */
+        }
+        .modal-arrow.right {
+            right: -60px; /* Change how far the right arrow is from the image */
+        }
+        .back-to-home {
+            text-align: center;
+            margin-top: 40px;
+        }
+        .back-to-home a {
+            color: #7a34a6;
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 700;
         }
-        .back-btn:hover {
-            color: #218838;
+        .back-to-home a:hover {
+            color: #672c8e;
+        }
+        @media (max-width: 768px) {
+            .project-content {
+                flex-direction: column;
+            }
+            .project-image, .project-text {
+                flex: 100%;
+            }
+            .additional-images {
+                grid-template-columns: 1fr; /* Stack in one column on small screens */
+            }
+            .modal-dialog {
+                margin: 0; /* Remove margin to fill the screen */
+                width: 100%; /* Full width */
+                height: 100%; /* Full height */
+            }
+            .modal-body {
+                min-height: 100vh; /* Full viewport height */
+            }
+            .modal-body img {
+                max-width: 100%; /* Fill the width */
+                max-height: 90vh; /* Allow more height */
+                width: 100%; /* Ensure it fills the width */
+                height: auto;
+            }
+            .modal-arrow.left {
+                left: 10px; /* Adjust for smaller screens */
+            }
+            .modal-arrow.right {
+                right: 10px; /* Adjust for smaller screens */
+            }
+            .modal-close {
+                top: -10px; /* Keep consistent distance */
+                right: 10px; /* Ensure it’s visible within the viewport */
+            }
+        }
+        /* Additional media query for very small screens like iPhone SE (320px wide) */
+        @media (max-width: 375px) {
+            .modal-close {
+                top: -10px; /* Keep consistent distance */
+                right: 5px; /* Closer to the edge to ensure visibility */
+            }
+            .modal-arrow.left {
+                left: 5px; /* Closer to the edge */
+            }
+            .modal-arrow.right {
+                right: 5px; /* Closer to the edge */
+            }
         }
     </style>
 </head>
 <body>
-    <header class="project-header">
-        <div class="container">
-            <h1>Doodle Game</h1>
+    <div class="container">
+        <h1 class="project-header">Gujarat Word Search Puzzle</h1>
+        <div class="project-content">
+            <div class="project-image">
+                <img src="doodle/middlepage.png" alt="Project Image">
+            </div>
+            <div class="project-text">
+                <h4>Project Overview</h4>
+                <p>This illustrated puzzle booklet transforms Gujarat's culture into an interactive travel experience. Serving as a checklist, it encourages tourists to explore hidden gems in a playful way. Designed for flights and gift stores, it gamifies tourism—turning sightseeing into an engaging adventure while doubling as a memorable keepsake.</p>
+            </div>
         </div>
-    </header>
+        <div class="additional-images">
+            <div class="additional-image" data-bs-toggle="modal" data-bs-target="#imageModal" data-image="doodle/doodle.png">
+                <img src="doodle/doodle.png" alt="Doodle">
+            </div>
+            <div class="additional-image" data-bs-toggle="modal" data-bs-target="#imageModal" data-image="doodle/page.png">
+                <img src="doodle/page.png" alt="Page">
+            </div>
+            <div class="additional-image" data-bs-toggle="modal" data-bs-target="#imageModal" data-image="doodle/backandfront.png">
+                <img src="doodle/backandfront.png" alt="Back and Front">
+            </div>
+            <div class="additional-image" data-bs-toggle="modal" data-bs-target="#imageModal" data-image="doodle/frontpage.png">
+                <img src="doodle/frontpage.png" alt="Front Page">
+            </div>
+        </div>
+        <div class="back-to-home">
+            <a href="index.html">← Back to Home</a>
+        </div>
+    </div>
 
-    <section class="project-content">
-        <div class="container">
-            <a href="index.html" class="back-btn">
-                <i class="fas fa-arrow-left"></i> Back to Portfolio
-            </a>
-            <img src="doodle/backandfront.png" 
-                 alt="Doodle Game" 
-                 class="project-image">
-            <h2>Project Overview</h2>
-            <p>
-                [Add your project description here. Include details about:
-                - Project goals
-                - Your role
-                - Technologies/tools used
-                - Challenges faced
-                - Outcomes/results]
-            </p>
-            <h2>Project Details</h2>
-            <ul>
-                <li>Category: Graphic Design, Photography</li>
-                <li>Date: [Add date]</li>
-                <li>Client: [Add client name or "Personal Project"]</li>
-                <li>Duration: [Add duration]</li>
-            </ul>
-            <!-- Add more sections as needed -->
+    <!-- Modal for Full-Size Image -->
+    <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <button type="button" class="modal-arrow left" onclick="changeImage(-1)">‹</button>
+                <div class="modal-body">
+                    <img src="" alt="Full Size Image" id="modalImage">
+                    <button type="button" class="modal-close" data-bs-dismiss="modal" aria-label="Close">×</button>
+                </div>
+                <button type="button" class="modal-arrow right" onclick="changeImage(1)">›</button>
+            </div>
         </div>
-    </section>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Array of image sources for navigation
+        const imageSources = [
+            "doodle/doodle.png",
+            "doodle/page.png",
+            "doodle/backandfront.png",
+            "doodle/frontpage.png"
+        ];
+        let currentImageIndex = 0;
+
+        // Modal Image Handling
+        document.querySelectorAll('.additional-image').forEach((item, index) => {
+            item.addEventListener('click', function () {
+                const imageSrc = this.getAttribute('data-image');
+                currentImageIndex = imageSources.indexOf(imageSrc);
+                document.getElementById('modalImage').src = imageSrc;
+            });
+        });
+
+        // Navigation in Modal
+        function changeImage(direction) {
+            currentImageIndex += direction;
+            if (currentImageIndex < 0) {
+                currentImageIndex = imageSources.length - 1;
+            } else if (currentImageIndex >= imageSources.length) {
+                currentImageIndex = 0;
+            }
+            document.getElementById('modalImage').src = imageSources[currentImageIndex];
+        }
+    </script>
 </body>
 </html>

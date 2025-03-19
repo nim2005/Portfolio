@@ -6,21 +6,24 @@
     <title>My Portfolio</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <style>
         html { scroll-behavior: smooth; }
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Montserrat', sans-serif;
             background: url('https://www.transparenttextures.com/patterns/graph-paper.png') repeat;
             color: #333;
             margin: 0;
             padding: 0;
+            overflow-x: hidden;
         }
         .navbar {
-            position: absolute;
+            position: fixed;
             top: 20px;
             right: 20px;
             z-index: 10;
             background: none;
+            transition: all 0.3s ease;
         }
         .navbar-nav {
             display: flex;
@@ -31,10 +34,15 @@
         .nav-link {
             color: #fff;
             text-decoration: none;
-            font-size: 1.2rem;
+            font-size: 1rem;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
         }
         .nav-link:hover { color: #e67e22; }
+        .nav-link.active {
+            color: #e67e22;
+            font-weight: bold;
+        }
         .nav-divider {
             width: 50px;
             height: 1px;
@@ -42,33 +50,29 @@
             margin: 5px 0;
             opacity: 0.7;
         }
-        .resume-download {
-            text-align: center;
-            margin: 40px 0;
+        .hero-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                            url('img/Images/IMG_0325.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            z-index: 1;
         }
-        .resume-download a {
-            background-color: #28a745;
-            color: #fff;
-            padding: 10px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            transition: background-color 0.3s ease;
-        }
-        .resume-download a:hover { background-color: #218838; }
         .hero-section {
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
-                            url('img/Images/IMG_0325.jpg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: scroll;
-            background-repeat: no-repeat;
             position: relative;
             color: #fff;
+            z-index: 2;
         }
         .hero-content h1 {
             font-size: 3.5rem;
@@ -76,46 +80,97 @@
             color: #fff;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
-        .hero-content h1 span { color: #e67e22; }
         .hero-content p {
             font-size: 1.5rem;
             color: #f8f9fa;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
         .btn-about {
-            background-color: #6c757d;
-            color: #fff;
-            padding: 10px 20px;
-            border-radius: 50px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
+    background-color: #7a34a6;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 10px;  /* Changed to rectangular with rounded corners */
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
         .btn-about:hover {
-            background-color: #5a6268;
+            background-color: #672c8e;
             color: #fff;
         }
-        @media (max-width: 768px) {
-            .hero-section {
-                background-position: 75% center;
-                background-size: 150% auto;
-            }
-            .hero-content h1 { font-size: 2.5rem; }
-            .hero-content p { font-size: 1.2rem; }
+        .content-wrapper {
+            position: relative;
+            z-index: 3;
+            background: none;
+            margin-top: 100vh;
         }
         #about-me {
+            min-height: 100vh;
+            width: 100vw;
             padding: 80px 0;
-            background-color: #fff;
+            color: #fff;
+            text-align: center;
+            background: rgba(59, 106, 75, 0.9); /* Change this color here */
+            opacity: 0;
+            transition: opacity 1s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #about-me.visible {
+            opacity: 1;
+        }
+        #about-me .about-content {
+            padding: 40px;
+            border-radius: 10px;
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+        }
+        #about-me .left-half {
+            padding: 40px;
+        }
+        #about-me .right-half {
+            padding: 0px;
         }
         #about-me h2 {
-            color: #2c3e50;
-            text-align: center;
-            margin-bottom: 40px;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        #about-me h2::after {
+            content: '';
+            width: 50px;
+            height: 2px;
+            background-color: #fff;
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        #about-me .profile-img {
+            width: 500px;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 5px;
         }
         #about-me p {
-            color: #7f8c8d;
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto;
+            max-width: 600px;
+            margin: 0 0 15px;
+            font-size: 1rem;
+            text-align: left;
+        }
+        #about-me .btn-resume {
+            background-color: #dc3545;
+            color: #fff;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        #about-me .btn-resume:hover {
+            background-color: #c82333;
         }
         #my-work {
             padding: 80px 0;
@@ -131,7 +186,7 @@
             content: '';
             width: 50px;
             height: 2px;
-            background-color: #28a745;
+            background-color: #672c8e;
             position: absolute;
             bottom: -10px;
             left: 50%;
@@ -147,12 +202,12 @@
             transition: all 0.3s ease;
         }
         .category-buttons .btn-primary {
-            background-color: #28a745;
-            border-color: #28a745;
+            background-color: #672c8e;
+            border-color: #672c8e;
         }
         .category-buttons .btn-primary:hover {
-            background-color: #218838;
-            border-color: #218838;
+            background-color: #672c8e;
+            border-color: #672c8e;
         }
         .category-buttons .btn-outline-secondary {
             color: #6c757d;
@@ -164,7 +219,7 @@
         }
         .work-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 20px;
             padding: 0 15px;
             transition: all 0.5s ease;
@@ -214,7 +269,6 @@
             margin: 0;
         }
         .work-item:hover { transform: scale(1.05); }
-        /* Scatter animation */
         .scatter .work-item {
             animation: scatter 0.5s ease forwards;
             opacity: 0;
@@ -223,7 +277,6 @@
             0% { transform: translate(0, 0); opacity: 1; }
             100% { transform: translate(calc(50vw - 50%), calc(50vh - 50%)); opacity: 0; }
         }
-        /* 3-column layout for Graphic Design */
         .graphic-design-active .work-grid {
             grid-template-columns: repeat(3, 1fr);
         }
@@ -235,18 +288,6 @@
             0% { transform: translateY(20px); opacity: 0; }
             100% { transform: translateY(0); opacity: 1; }
         }
-        .load-more {
-            text-align: center;
-            margin-top: 40px;
-        }
-        .load-more .btn {
-            background-color: #28a745;
-            color: #fff;
-            padding: 10px 20px;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-        .load-more .btn:hover { background-color: #218838; }
         #contact-me {
             padding: 80px 0;
             background-color: #f8f9fa;
@@ -261,7 +302,7 @@
             border-radius: 5px;
         }
         .contact-form .btn {
-            background-color: #28a745;
+            background-color: #672c8e;
             color: #fff;
             border-radius: 5px;
             transition: background-color 0.3s ease;
@@ -279,6 +320,19 @@
             margin: 0 10px;
         }
         footer .social-icons a:hover { color: #e67e22; }
+        @media (max-width: 576px) {
+    #about-me .left-half, #about-me .right-half {
+        padding: 15px;
+    }
+    #about-me .profile-img {
+        width: 150px;
+        height: 150px;
+        margin-bottom: 15px;
+    }
+    #about-me p {
+        margin: 0 auto 20px; /* Ensures text doesn’t squeeze too close to button */
+    }
+}
     </style>
 </head>
 <body>
@@ -298,160 +352,174 @@
         </ul>
     </nav>
 
-    <section class="hero-section">
-        <div class="hero-content">
-            <h1>Hi There, I'm <span>Nimeela Parupudi</span></h1>
-            <p>I Am Into Communication De</p>
-            <a href="#about-me" class="btn btn-about">About Me ↓</a>
-        </div>
-    </section>
-
-    <section id="about-me">
-        <div class="container">
-            <h2>About Me</h2>
-            <p>Hello! I'm Nimeela, I like to make designs which feel like an old friend, a cherished memory.</p>
-        </div>
-    </section>
-
-    <section id="my-work">
-        <div class="container">
-            <h2>My Work</h2>
-            <div class="category-buttons">
-                <button class="btn btn-primary" data-category="all">Show All</button>
-                <button class="btn btn-outline-secondary" data-category="graphic-design">Graphic Design</button>
-                <button class="btn btn-outline-secondary" data-category="poetry">Poetry</button>
-                <button class="btn btn-outline-secondary" data-category="photography">Photography</button>
+    <div class="hero-wrapper">
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1>Hi There, I'm <span>Nimeela Parupudi</span></h1>
+                <p>I Am Into Communication Design</p>
+                <a href="#about-me" class="btn btn-about">About Me ↓</a>
             </div>
-            <div class="work-grid">
-                <div class="work-item" data-categories="all graphic-design" onclick="window.location.href='project1.html'">
-                    <div class="work-image-container">
-                        <img src="doodle/backandfront.png" alt="Doodle Game Design">
-                        <div class="work-overlay">
-                            <h3>Doodle Game</h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="work-item" data-categories="all graphic-design" onclick="window.location.href='project2.html'">
-                    <div class="work-image-container">
-                        <img src="poster/project2.png" alt="Project 2">
-                        <div class="work-overlay">
-                            <h3>What is Design?</h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="work-item" data-categories="all graphic-design" onclick="window.location.href='project3.html'">
-                    <div class="work-image-container">
-                        <img src="poster/project3.png" alt="Project 3">
-                        <div class="work-overlay">
-                            <h3>Kannada Poster</h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="work-item" data-categories="all poetry" onclick="window.location.href='poetry1.html'">
-                    <div class="work-image-container">
-                        <img src="poetry/poetry1.png" alt="Poetry 1">
-                        <div class="work-overlay">
-                            <h3>When Reality Pounds</h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="work-item" data-categories="all poetry" onclick="window.location.href='poetry2.html'">
-                    <div class="work-image-container">
-                        <img src="poetry/poetry2.png" alt="Poetry 2">
-                        <div class="work-overlay">
-                            <h3>Poetry 2</h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="work-item" data-categories="all poetry" onclick="window.location.href='poetry3.html'">
-                    <div class="work-image-container">
-                        <img src="poetry/poetry3.png" alt="Poetry 3">
-                        <div class="work-overlay">
-                            <h3>Poetry 3</h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="work-item" data-categories="all photography" onclick="window.location.href='photo1.html'">
-                    <div class="work-image-container">
-                        <img src="photography/photo1.jpg" alt="Photography 1">
-                        <div class="work-overlay">
-                            <h3>Photography 1</h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="work-item" data-categories="all photography" onclick="window.location.href='photo2.html'">
-                    <div class="work-image-container">
-                        <img src="photography/photo2.JPG" alt="Photography 1">
-                        <div class="work-overlay">
-                            <h3>Photography 1</h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="work-item" data-categories="all photography" onclick="window.location.href='photo3.html'">
-                    <div class="work-image-container">
-                        <img src="photography/photo3.jpg" alt="Photography 1">
-                        <div class="work-overlay">
-                            <h3>Photography 1</h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="load-more">
-                <button class="btn">Load More →</button>
-            </div>
-        </div>
-    </section>
-
-    <div class="resume-download">
-        <a href="path/to/your/resume.pdf" download>Download My Resume</a>
+        </section>
     </div>
 
-    <section id="contact-me">
-        <div class="container">
-            <h2>Contact Me</h2>
-            <form class="contact-form">
-                <div class="row">
-                    <div class="col-md-6">
-                        <input type="text" class="form-control" placeholder="Your Name" required>
-                    </div>
-                    <div class="col-md-6">
-                        <input type="email" class="form-control" placeholder="Your Email" required>
+    <div class="content-wrapper">
+        <section id="about-me">
+            <div class="container">
+                <div class="about-content">
+                    <div class="row align-items-center">
+                        <div class="col-sm-6 col-12 text-center left-half">
+                            <img src="dp3.jpg" alt="Profile Image" class="profile-img">
+                        </div>
+                        <div class="col-md-6 text-left right-half">
+                            <h2>About Me</h2>
+                            <p>
+                                I'm a passionate designer and developer with experience in creating 
+                                innovative and user-friendly solutions. My expertise lies in web development, 
+                                UI/UX design, and creative problem-solving. I believe in the power of design 
+                                to enhance user experiences and drive meaningful interactions.
+                            </p>
+                            <a href="resume2021.pdf" target="_blank" class="btn-resume">View Resume</a>
+                        </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-12">
-                        <textarea class="form-control" rows="5" placeholder="Your Message" required></textarea>
-                    </div>
-                </div>
-                <div class="text-center">
-                    <button type="submit" class="btn">Send Message</button>
-                </div>
-            </form>
-        </div>
-    </section>
-
-    <footer>
-        <div class="container">
-            <p>© 2025 Nimeela Parupudi. All Rights Reserved.</p>
-            <div class="social-icons">
-                <a href="#"><i class="fab fa-behance"></i></a>
-                <a href="#"><i class="fab fa-linkedin"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
             </div>
-        </div>
-    </footer>
+        </section>
+
+        <section id="my-work">
+            <div class="container">
+                <h2>My Work</h2>
+                <div class="category-buttons">
+                    <button class="btn btn-primary" data-category="all">Show All</button>
+                    <button class="btn btn-outline-secondary" data-category="graphic-design">Graphic Design</button>
+                    <button class="btn btn-outline-secondary" data-category="poetry">Poetry</button>
+                    <button class="btn btn-outline-secondary" data-category="photography">Photography</button>
+                </div>
+                <div class="work-grid">
+                    <div class="work-item" data-categories="all graphic-design" onclick="window.location.href='project1.html'">
+                        <div class="work-image-container">
+                            <img src="doodle/backandfront.png" alt="Doodle Game Design">
+                            <div class="work-overlay">
+                                <h3>Doodle Game</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="work-item" data-categories="all graphic-design" onclick="window.location.href='project2.html'">
+                        <div class="work-image-container">
+                            <img src="poster/project2.png" alt="Project 2">
+                            <div class="work-overlay">
+                                <h3>What is Design?</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="work-item" data-categories="all graphic-design" onclick="window.location.href='project3.html'">
+                        <div class="work-image-container">
+                            <img src="poster/project3.png" alt="Project 3">
+                            <div class="work-overlay">
+                                <h3>Kannada Poster</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="work-item" data-categories="all poetry" onclick="window.location.href='poetry1.html'">
+                        <div class="work-image-container">
+                            <img src="poetry/poetry1.png" alt="Poetry 1">
+                            <div class="work-overlay">
+                                <h3>When Reality Pounds</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="work-item" data-categories="all poetry" onclick="window.location.href='poetry2.html'">
+                        <div class="work-image-container">
+                            <img src="poetry/poetry2.png" alt="Poetry 2">
+                            <div class="work-overlay">
+                                <h3>Poetry 2</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="work-item" data-categories="all poetry" onclick="window.location.href='poetry3.html'">
+                        <div class="work-image-container">
+                            <img src="poetry/poetry3.png" alt="Poetry 3">
+                            <div class="work-overlay">
+                                <h3>Poetry 3</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="work-item" data-categories="all photography" onclick="window.location.href='photo1.html'">
+                        <div class="work-image-container">
+                            <img src="photography/photo1.jpg" alt="Photography 1">
+                            <div class="work-overlay">
+                                <h3>Photography 1</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="work-item" data-categories="all photography" onclick="window.location.href='photo2.html'">
+                        <div class="work-image-container">
+                            <img src="photography/photo2.JPG" alt="Photography 1">
+                            <div class="work-overlay">
+                                <h3>Photography 2</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="work-item" data-categories="all photography" onclick="window.location.href='photo3.html'">
+                        <div class="work-image-container">
+                            <img src="photography/photo3.jpg" alt="Photography 1">
+                            <div class="work-overlay">
+                                <h3>Photography 3</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact-me">
+            <div class="container">
+                <h2>Contact Me</h2>
+                <form class="contact-form">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" placeholder="Your Name" required>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="email" class="form-control" placeholder="Your Email" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <textarea class="form-control" rows="5" placeholder="Your Message" required></textarea>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn">Send Message</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <footer>
+            <div class="container">
+                <p>© 2025 Nimeela Parupudi. All Rights Reserved.</p>
+                <div class="social-icons">
+                    <a href="https://www.behance.net/nimeelap14" target="_blank"><i class="fab fa-behance"></i></a>
+                    <a href="https://www.linkedin.com/in/nimeela-p/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://www.instagram.com/onmytypetoes/" target="_blank"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </footer>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         const buttons = document.querySelectorAll('.category-buttons .btn');
         const workItems = document.querySelectorAll('.work-item');
         const workGrid = document.querySelector('.work-grid');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('section');
+        const aboutSection = document.getElementById('about-me');
 
+        // Category filter functionality
         buttons.forEach(button => {
             button.addEventListener('click', () => {
                 const category = button.getAttribute('data-category');
-
-                // Remove active class from all buttons and add to the clicked one
                 buttons.forEach(btn => btn.classList.remove('btn-primary'));
                 button.classList.add('btn-primary');
                 buttons.forEach(btn => {
@@ -461,20 +529,7 @@
                         btn.classList.remove('btn-outline-secondary');
                     }
                 });
-
-                // Handle filtering and animation
-                if (category === 'graphic-design') {
-                    // Scatter effect
-                    workGrid.classList.add('scatter');
-                    setTimeout(() => {
-                        workGrid.classList.remove('scatter');
-                        workGrid.classList.add('graphic-design-active');
-                        filterItems(category);
-                    }, 500); // Match scatter animation duration
-                } else {
-                    workGrid.classList.remove('graphic-design-active');
-                    filterItems(category);
-                }
+                filterItems(category);
             });
         });
 
@@ -489,8 +544,42 @@
             });
         }
 
-        // Initial display: show all
         filterItems('all');
+
+        // Navbar active section highlighting
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= sectionTop - sectionHeight / 3) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+
+            // About Me fade-in animation
+            const triggerPoint = window.scrollY + window.innerHeight;
+            const aboutTop = aboutSection.offsetTop;
+            if (triggerPoint > aboutTop + 200) {
+                aboutSection.classList.add('visible');
+            }
+        });
+
+        // Check on page load
+        window.addEventListener('load', () => {
+            const triggerPoint = window.scrollY + window.innerHeight;
+            const aboutTop = aboutSection.offsetTop;
+            if (triggerPoint > aboutTop + 200) {
+                aboutSection.classList.add('visible');
+            }
+        });
     </script>
 </body>
 </html>
