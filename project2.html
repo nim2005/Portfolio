@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project 1 - Doodle Game</title>
+    <title>Project 2 - What is Design?</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
@@ -15,6 +15,19 @@
             padding: 0;
             color: #333;
         }
+        .btn-purple-outline {
+  border-radius: 25px;
+  border: 2px solid #7a34a6;
+  color: #7a34a6;
+  background-color: transparent;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-purple-outline:hover {
+  background-color: #7a34a6;
+  color: white;
+}
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -32,7 +45,7 @@
             gap: 30px;
         }
         .project-image {
-            flex: 1 1 60%;
+            flex: 1 1 40%;
             min-width: 300px;
             background: #fff;
             border-radius: 10px;
@@ -63,66 +76,115 @@
             line-height: 1.5;
             margin-bottom: 15px;
         }
-        /* Carousel Section Styling */
-        .carousel-section {
+         /* Keywords Section */
+         .keyword-section {
+            margin: 20px 0;
+            text-align: center;
+        }
+        .keyword-tag {
+            display: inline-block;
+            border-radius: 25px;
+            border: 2px solid hsl(277, 52%, 43%);
+            color: #7a34a6;
+            background-color: transparent;
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            margin: 0 10px 10px 0;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            cursor: default; /* Indicates not clickable */
+        }
+        /* Additional Images Section - Two Columns */
+        .additional-images {
             margin-top: 40px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* Two columns */
+            gap: 30px;
+        }
+        .additional-image {
             background: #fff;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            position: relative;
-        }
-        .carousel-container {
-            display: flex;
-            overflow-x: auto;
-            scroll-behavior: smooth;
-            gap: 20px;
-            padding: 10px 0;
-            scrollbar-width: none; /* Firefox */
-        }
-        .carousel-container::-webkit-scrollbar {
-            display: none; /* Chrome, Safari, Edge */
-        }
-        .carousel-item {
-            flex: 0 0 auto;
-            width: 250px;
-            height: 200px;
-            background: #ddd;
-            border-radius: 10px;
+            border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer; /* Indicate clickable */
         }
-        .carousel-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        .additional-image:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+        .additional-image img {
+            width: 100%; /* Scale to fit the column */
+            height: auto; /* Preserve aspect ratio */
             display: block;
         }
-        .carousel-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.5);
-            color: #fff;
+        /* Modal for Full-Size Image */
+        .modal-content {
+            background: transparent; /* Remove background */
+            border-radius: 0; /* Remove border radius */
+            position: relative;
             border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
+        }
+        .modal-body {
+            padding: 0;
+            background: transparent; /* Remove background */
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            min-height: 90vh; /* Take up most of the viewport height */
+            position: relative; /* Make this a positioning context for the close button */
+        }
+        .modal-body img {
+            max-width: 90%; /* Prevent overflow */
+            max-height: 80vh; /* Prevent overflow */
+            width: auto; /* Preserve original width */
+            height: auto; /* Preserve original height */
+            display: block;
+        }
+        /* Close Button Styles - Positioned relative to the image */
+        .modal-close {
+            position: absolute;
+            top: -10px; /* Closer to the image (10px above) */
+            right: 0; /* Align with the right edge of the image */
+            background: none !important; /* Explicitly remove background */
+            color: #fff; /* Change the color of the "×" */
+            border: none;
+            width: 40px; /* Change the width of the button */
+            height: 40px; /* Change the height of the button */
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            font-size: 1.2rem;
-            transition: background 0.3s ease;
+            font-size: 1.5rem; /* Change the size of the "×" */
+            transition: color 0.3s ease, transform 0.3s ease;
+            z-index: 1000; /* Ensure it’s above other elements */
         }
-        .carousel-arrow:hover {
-            background: rgba(0, 0, 0, 0.8);
+        .modal-close:hover {
+            color: #7a34a6; /* Change the hover color of the "×" */
+            transform: scale(1.1); /* Change the hover scale effect */
         }
-        .carousel-arrow.left {
-            left: 10px;
+        /* Arrow Styles */
+        .modal-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none !important; /* Explicitly remove background */
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 3rem; /* Change the size of the arrows */
+            color: #fff; /* Change the color of the arrows */
+            transition: color 0.3s ease;
         }
-        .carousel-arrow.right {
-            right: 10px;
+        .modal-arrow:hover {
+            color: #7a34a6; /* Change the hover color of the arrows */
+        }
+        .modal-arrow.left {
+            left: -60px; /* Change how far the left arrow is from the image */
+        }
+        .modal-arrow.right {
+            right: -60px; /* Change how far the right arrow is from the image */
         }
         .back-to-home {
             text-align: center;
@@ -143,55 +205,131 @@
             .project-image, .project-text {
                 flex: 100%;
             }
-            .carousel-item {
-                width: 200px;
-                height: 150px;
+            .additional-images {
+                grid-template-columns: 1fr; /* Stack in one column on small screens */
+            }
+            .modal-dialog {
+                margin: 0; /* Remove margin to fill the screen */
+                width: 100%; /* Full width */
+                height: 100%; /* Full height */
+            }
+            .modal-body {
+                min-height: 100vh; /* Full viewport height */
+            }
+            .modal-body img {
+                max-width: 100%; /* Fill the width */
+                max-height: 90vh; /* Allow more height */
+                width: 100%; /* Ensure it fills the width */
+                height: auto;
+            }
+            .modal-arrow.left {
+                left: 10px; /* Adjust for smaller screens */
+            }
+            .modal-arrow.right {
+                right: 10px; /* Adjust for smaller screens */
+            }
+            .modal-close {
+                top: -10px; /* Keep consistent distance */
+                right: 10px; /* Ensure it’s visible within the viewport */
+            }
+        }
+        /* Additional media query for very small screens like iPhone SE (320px wide) */
+        @media (max-width: 375px) {
+            .modal-close {
+                top: -10px; /* Keep consistent distance */
+                right: 5px; /* Closer to the edge to ensure visibility */
+            }
+            .modal-arrow.left {
+                left: 5px; /* Closer to the edge */
+            }
+            .modal-arrow.right {
+                right: 5px; /* Closer to the edge */
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1 class="project-header">Project 1 - Doodle Game</h1>
+        <div class="back-to-home" style="text-align: left;">
+            <a href="index.html#my-work">← Back to Projects</a>
+        </div>
+        <h1 class="project-header">What is Design?</h1>
         <div class="project-content">
             <div class="project-image">
-                <img src="doodle/backandfront.png" alt="Project Image">
+                <img src="what is design/what is design mockup.png" alt="Project Image">
             </div>
             <div class="project-text">
                 <h4>Project Overview</h4>
-                <p>[Placeholder text for project description. Replace with actual content.]</p>
+                <p>This poster emerged from deep reflection on the question, “What is design?” As designers, we're often told to step into others' shoes—but what about those who don’t have feet? This empathetic thought reshaped my perspective. 
+                    <br><br>
+                    I used juxtaposition through colors and prints to create high contrast and a striking visual comparison, prompting viewers to introspect and uncover the deeper meaning. This poster depicts the different paths a designer takes, some overlapping and some isolated, all leading to an unbiased exploration of the grey areas.  </p>
             </div>
         </div>
-        <div class="carousel-section">
-            <button class="carousel-arrow left" onclick="scrollCarousel('left', this)">‹</button>
-            <div class="carousel-container">
-                <!-- Images for the carousel -->
-                <div class="carousel-item">
-                    <img src="doodle/middlepage.png" alt="Middle Page">
-                </div>
-                <div class="carousel-item">
-                    <img src="doodle/frontpage.png" alt="Front Page">
-                </div>
-                <div class="carousel-item">
-                    <img src="doodle/backandfront.png" alt="Back and Front">
-                </div>
-            </div>
-            <button class="carousel-arrow right" onclick="scrollCarousel('right', this)">›</button>
+        <!-- Keyword Section -->
+        <div class="keyword-section">
+            <span class="keyword-tag">Poster</span>
+            <span class="keyword-tag">Introspective</span>
+            <span class="keyword-tag">Design Thinking</span>
+           
         </div>
-        <div class="back-to-home">
-            <a href="index.html">← Back to Home</a>
+        <div class="additional-images">
+            <div class="additional-image" data-bs-toggle="modal" data-bs-target="#imageModal" data-image="doodle/doodle.png">
+            </div>
+        </div>
+        <div class="d-flex justify-content-between mt-5">
+            <a href="project1.html" class="btn btn-purple-outline">
+              ← Previous Project
+            </a>
+            <a href="project3.html" class="btn btn-purple-outline">
+              Next Project →
+            </a>
+          </div>
+          
+    </div>
+
+    <!-- Modal for Full-Size Image -->
+    <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <button type="button" class="modal-arrow left" onclick="changeImage(-1)">‹</button>
+                <div class="modal-body">
+                    <img src="" alt="Full Size Image" id="modalImage">
+                    <button type="button" class="modal-close" data-bs-dismiss="modal" aria-label="Close">×</button>
+                </div>
+                <button type="button" class="modal-arrow right" onclick="changeImage(1)">›</button>
+            </div>
         </div>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        function scrollCarousel(direction, button) {
-            const container = button.parentElement.querySelector('.carousel-container');
-            const scrollAmount = 260; // Width of carousel item (250px) + gap (20px)
-            if (direction === 'left') {
-                container.scrollLeft -= scrollAmount;
-            } else {
-                container.scrollLeft += scrollAmount;
+        // Array of image sources for navigation
+        const imageSources = [
+            "doodle/doodle.png",
+            "doodle/page.png",
+            "doodle/backandfront.png",
+            "doodle/frontpage.png"
+        ];
+        let currentImageIndex = 0;
+
+        // Modal Image Handling
+        document.querySelectorAll('.additional-image').forEach((item, index) => {
+            item.addEventListener('click', function () {
+                const imageSrc = this.getAttribute('data-image');
+                currentImageIndex = imageSources.indexOf(imageSrc);
+                document.getElementById('modalImage').src = imageSrc;
+            });
+        });
+
+        // Navigation in Modal
+        function changeImage(direction) {
+            currentImageIndex += direction;
+            if (currentImageIndex < 0) {
+                currentImageIndex = imageSources.length - 1;
+            } else if (currentImageIndex >= imageSources.length) {
+                currentImageIndex = 0;
             }
+            document.getElementById('modalImage').src = imageSources[currentImageIndex];
         }
     </script>
 </body>

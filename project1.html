@@ -15,6 +15,17 @@
             padding: 0;
             color: #333;
         }
+        .btn-purple-outline {
+            border-radius: 25px;
+            border: 2px solid hsl(277, 52%, 43%);
+            color: #7a34a6;
+            background-color: transparent;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .btn-purple-outline:hover {
+            background-color: #7a34a6;
+            color: white;
+        }
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -63,11 +74,29 @@
             line-height: 1.5;
             margin-bottom: 15px;
         }
+        /* Keywords Section */
+        .keyword-section {
+            margin: 20px 0;
+            text-align: center;
+        }
+        .keyword-tag {
+            display: inline-block;
+            border-radius: 25px;
+            border: 2px solid hsl(277, 52%, 43%);
+            color: #7a34a6;
+            background-color: transparent;
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            margin: 0 10px 10px 0;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            cursor: default; /* Indicates not clickable */
+        }
+        
         /* Additional Images Section - Two Columns */
         .additional-images {
             margin-top: 40px;
             display: grid;
-            grid-template-columns: repeat(2, 1fr); /* Two columns */
+            grid-template-columns: repeat(2, 1fr);
             gap: 30px;
         }
         .additional-image {
@@ -76,85 +105,85 @@
             overflow: hidden;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer; /* Indicate clickable */
+            cursor: pointer;
         }
         .additional-image:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
         }
         .additional-image img {
-            width: 100%; /* Scale to fit the column */
-            height: auto; /* Preserve aspect ratio */
+            width: 100%;
+            height: auto;
             display: block;
         }
         /* Modal for Full-Size Image */
         .modal-content {
-            background: transparent; /* Remove background */
-            border-radius: 0; /* Remove border radius */
+            background: transparent;
+            border-radius: 0;
             position: relative;
             border: none;
         }
         .modal-body {
             padding: 0;
-            background: transparent; /* Remove background */
+            background: transparent;
             display: flex;
-            justify-content: center; /* Center horizontally */
-            align-items: center; /* Center vertically */
-            min-height: 90vh; /* Take up most of the viewport height */
-            position: relative; /* Make this a positioning context for the close button */
+            justify-content: center;
+            align-items: center;
+            min-height: 90vh;
+            position: relative;
         }
         .modal-body img {
-            max-width: 90%; /* Prevent overflow */
-            max-height: 80vh; /* Prevent overflow */
-            width: auto; /* Preserve original width */
-            height: auto; /* Preserve original height */
+            max-width: 90%;
+            max-height: 80vh;
+            width: auto;
+            height: auto;
             display: block;
         }
         /* Close Button Styles - Positioned relative to the image */
         .modal-close {
             position: absolute;
-            top: -10px; /* Closer to the image (10px above) */
-            right: 0; /* Align with the right edge of the image */
-            background: none !important; /* Explicitly remove background */
-            color: #fff; /* Change the color of the "×" */
+            top: -10px;
+            right: 0;
+            background: none !important;
+            color: #fff;
             border: none;
-            width: 40px; /* Change the width of the button */
-            height: 40px; /* Change the height of the button */
+            width: 40px;
+            height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            font-size: 1.5rem; /* Change the size of the "×" */
+            font-size: 1.5rem;
             transition: color 0.3s ease, transform 0.3s ease;
-            z-index: 1000; /* Ensure it’s above other elements */
+            z-index: 1000;
         }
         .modal-close:hover {
-            color: #7a34a6; /* Change the hover color of the "×" */
-            transform: scale(1.1); /* Change the hover scale effect */
+            color: #7a34a6;
+            transform: scale(1.1);
         }
         /* Arrow Styles */
         .modal-arrow {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: none !important; /* Explicitly remove background */
+            background: none !important;
             border: none;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            font-size: 3rem; /* Change the size of the arrows */
-            color: #fff; /* Change the color of the arrows */
+            font-size: 3rem;
+            color: #fff;
             transition: color 0.3s ease;
         }
         .modal-arrow:hover {
-            color: #7a34a6; /* Change the hover color of the arrows */
+            color: #7a34a6;
         }
         .modal-arrow.left {
-            left: -60px; /* Change how far the left arrow is from the image */
+            left: -60px;
         }
         .modal-arrow.right {
-            right: -60px; /* Change how far the right arrow is from the image */
+            right: -60px;
         }
         .back-to-home {
             text-align: center;
@@ -176,50 +205,53 @@
                 flex: 100%;
             }
             .additional-images {
-                grid-template-columns: 1fr; /* Stack in one column on small screens */
+                grid-template-columns: 1fr;
             }
             .modal-dialog {
-                margin: 0; /* Remove margin to fill the screen */
-                width: 100%; /* Full width */
-                height: 100%; /* Full height */
+                margin: 0;
+                width: 100%;
+                height: 100%;
             }
             .modal-body {
-                min-height: 100vh; /* Full viewport height */
+                min-height: 100vh;
             }
             .modal-body img {
-                max-width: 100%; /* Fill the width */
-                max-height: 90vh; /* Allow more height */
-                width: 100%; /* Ensure it fills the width */
+                max-width: 100%;
+                max-height: 90vh;
+                width: 100%;
                 height: auto;
             }
             .modal-arrow.left {
-                left: 10px; /* Adjust for smaller screens */
+                left: 10px;
             }
             .modal-arrow.right {
-                right: 10px; /* Adjust for smaller screens */
+                right: 10px;
             }
             .modal-close {
-                top: -10px; /* Keep consistent distance */
-                right: 10px; /* Ensure it’s visible within the viewport */
+                top: -10px;
+                right: 10px;
             }
         }
         /* Additional media query for very small screens like iPhone SE (320px wide) */
         @media (max-width: 375px) {
             .modal-close {
-                top: -10px; /* Keep consistent distance */
-                right: 5px; /* Closer to the edge to ensure visibility */
+                top: -10px;
+                right: 5px;
             }
             .modal-arrow.left {
-                left: 5px; /* Closer to the edge */
+                left: 5px;
             }
             .modal-arrow.right {
-                right: 5px; /* Closer to the edge */
+                right: 5px;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <div class="back-to-home" style="text-align: left;">
+            <a href="index.html#my-work">← Back to Projects</a>
+        </div>
         <h1 class="project-header">Gujarat Word Search Puzzle</h1>
         <div class="project-content">
             <div class="project-image">
@@ -229,6 +261,13 @@
                 <h4>Project Overview</h4>
                 <p>This illustrated puzzle booklet transforms Gujarat's culture into an interactive travel experience. Serving as a checklist, it encourages tourists to explore hidden gems in a playful way. Designed for flights and gift stores, it gamifies tourism—turning sightseeing into an engaging adventure while doubling as a memorable keepsake.</p>
             </div>
+        </div>
+        <!-- Keyword Section -->
+        <div class="keyword-section">
+            <span class="keyword-tag">Doodle</span>
+            <span class="keyword-tag">Puzzle</span>
+            <span class="keyword-tag">Travel</span>
+            <span class="keyword-tag">Interactive</span>
         </div>
         <div class="additional-images">
             <div class="additional-image" data-bs-toggle="modal" data-bs-target="#imageModal" data-image="doodle/doodle.png">
@@ -244,9 +283,11 @@
                 <img src="doodle/frontpage.png" alt="Front Page">
             </div>
         </div>
-        <div class="back-to-home">
-            <a href="index.html">← Back to Home</a>
-        </div>
+        <div class="text-end mt-3">
+            <a href="project2.html" class="btn btn-purple-outline">
+              Next Project →
+            </a>
+          </div>
     </div>
 
     <!-- Modal for Full-Size Image -->

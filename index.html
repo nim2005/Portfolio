@@ -89,7 +89,7 @@
     background-color: #7a34a6;
     color: #fff;
     padding: 10px 20px;
-    border-radius: 10px;  /* Changed to rectangular with rounded corners */
+    border-radius: 10px;  
     text-decoration: none;
     transition: all 0.3s ease;
 }
@@ -109,7 +109,7 @@
             padding: 80px 0;
             color: #fff;
             text-align: center;
-            background: rgba(59, 106, 75, 0.9); /* Change this color here */
+            background: rgba(61, 39, 107, 0.9); 
             opacity: 0;
             transition: opacity 1s ease;
             display: flex;
@@ -330,7 +330,7 @@
         margin-bottom: 15px;
     }
     #about-me p {
-        margin: 0 auto 20px; /* Ensures text doesn’t squeeze too close to button */
+        margin: 0 auto 20px; 
     }
 }
     </style>
@@ -356,7 +356,7 @@
         <section class="hero-section">
             <div class="hero-content">
                 <h1>Hi There, I'm <span>Nimeela Parupudi</span></h1>
-                <p>I Am Into Communication Design</p>
+                <p>A Visual Communication Designer</p>
                 <a href="#about-me" class="btn btn-about">About Me ↓</a>
             </div>
         </section>
@@ -373,12 +373,12 @@
                         <div class="col-md-6 text-left right-half">
                             <h2>About Me</h2>
                             <p>
-                                I'm a passionate designer and developer with experience in creating 
-                                innovative and user-friendly solutions. My expertise lies in web development, 
-                                UI/UX design, and creative problem-solving. I believe in the power of design 
-                                to enhance user experiences and drive meaningful interactions.
+                                I'm Nimeela Parupudi, a 2nd year visual communication design student driven by the power of narrative.
+                                 I create designs that linger—bold, versatile, and rooted in meaning. Whether through illustration, layout, or storytelling, 
+                                 I craft striking visuals that resonate,
+                                 my love for design that feels like an old friend, someoje who's always in your memory.
                             </p>
-                            <a href="resume2021.pdf" target="_blank" class="btn-resume">View Resume</a>
+                            <a href="resume2025.pdf" target="_blank" class="btn-resume">View Resume</a>
                         </div>
                     </div>
                 </div>
@@ -416,6 +416,30 @@
                             <img src="poster/project3.png" alt="Project 3">
                             <div class="work-overlay">
                                 <h3>Kannada Poster</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="work-item" data-categories="all graphic-design" onclick="window.location.href='project4.html'">
+                        <div class="work-image-container">
+                            <img src="mascara/msubway.png" alt="Project 4">
+                            <div class="work-overlay">
+                                <h3>Cruelty-free Beauty Campaign</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="work-item" data-categories="all graphic-design" onclick="window.location.href='project5.html'">
+                        <div class="work-image-container">
+                            <img src="onion/coverpageoniontwo.png" alt="Project 5">
+                            <div class="work-overlay">
+                                <h3>Character Design</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="work-item" data-categories="all graphic-design" onclick="window.location.href='project6.html'">
+                        <div class="work-image-container">
+                            <img src="magazine/magazine1.png" alt="Project 5">
+                            <div class="work-overlay">
+                                <h3>Character Design</h3>
                             </div>
                         </div>
                     </div>
@@ -546,7 +570,7 @@
 
         filterItems('all');
 
-        // Navbar active section highlighting
+        // Navbar active section highlighting and scroll management
         window.addEventListener('scroll', () => {
             let current = '';
             sections.forEach(section => {
@@ -567,16 +591,32 @@
             // About Me fade-in animation
             const triggerPoint = window.scrollY + window.innerHeight;
             const aboutTop = aboutSection.offsetTop;
-            if (triggerPoint > aboutTop + 200) {
+            if (triggerPoint > aboutTop + 200 && !aboutSection.classList.contains('visible')) {
                 aboutSection.classList.add('visible');
             }
         });
 
-        // Check on page load
+        // Handle navigation from photography pages
         window.addEventListener('load', () => {
+            const hash = window.location.hash;
+            if (hash === '#my-work' && sessionStorage.getItem('targetSection') === 'my-work') {
+                // Temporarily disable smooth scrolling
+                document.documentElement.style.scrollBehavior = 'auto';
+                const myWorkSection = document.getElementById('my-work');
+                if (myWorkSection) {
+                    myWorkSection.scrollIntoView({ behavior: 'auto' }); // Instant scroll
+                }
+                // Re-enable smooth scrolling after scroll
+                setTimeout(() => {
+                    document.documentElement.style.scrollBehavior = 'smooth';
+                    sessionStorage.removeItem('targetSection'); // Clear after use
+                }, 100);
+            }
+
+            // Initial check for About Me animation
             const triggerPoint = window.scrollY + window.innerHeight;
             const aboutTop = aboutSection.offsetTop;
-            if (triggerPoint > aboutTop + 200) {
+            if (triggerPoint > aboutTop + 200 && !aboutSection.classList.contains('visible')) {
                 aboutSection.classList.add('visible');
             }
         });
