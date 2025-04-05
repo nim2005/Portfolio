@@ -100,9 +100,16 @@
             width: 100%;
             height: auto; /* Default behavior */
             display: block;
-        }
+        } 
+        
         /* Keywords Section */
-        .keyword-section {
+        .keyword-section {@media (max-width: 576px) { /* For phones */
+    .additional-image.frame img {
+        width: 100vw; /* Full viewport width */
+        height: 100vh; /* Full viewport height */
+        object-fit: cover; /* Ensure the image covers the screen without distortion */
+    }
+}
             margin: 20px 0;
             text-align: center;
         }

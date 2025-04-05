@@ -60,6 +60,13 @@
     object-fit: cover; /* Ensures the image maintains its aspect ratio */
     display: block;
 }
+@media (max-width: 576px) { /* For phones */
+    .project-image img {
+        height: auto; /* Allow the height to adjust automatically */
+        width: 100%; /* Ensure the image fills the container width */
+        object-fit: contain; /* Prevent cropping and maintain aspect ratio */
+    }
+}
         .project-text {
             flex: 1 1 30%;
             min-width: 250px;
@@ -269,11 +276,11 @@
                 </p>
             </div>
         </div>
-        \<!-- Keyword Section -->
+        <!-- Keyword Section -->
         <div class="keyword-section">
             <span class="keyword-tag">Fashion Magazine</span>
             <span class="keyword-tag">Layout</span>
-            <span class="keyword-tag">Publication Design</span>
+            <span class="keyword-tag">Publication esign</span>
            
         </div>
         <div class="additional-images">
